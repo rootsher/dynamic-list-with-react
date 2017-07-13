@@ -9,10 +9,10 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 })
 
 module.exports = {
-	devtool: "eval-inline-source-map",
+	// devtool: "eval-inline-source-map",
 	entry: {
 		main: ["./src"],
-		vendor: ["react", "react-dom" ]
+		// vendor: ["react", "react-dom" ]
 	},
 	output: {
 		// devtoolLineToLine: true,
@@ -24,21 +24,26 @@ module.exports = {
 		extensions: ['.js', '.jsx']
 	},
 	module: {
-		loaders: [{test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ }, 
+		loaders: [{test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
 				  {test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }]
 	},
 	plugins: [HtmlWebpackPluginConfig,
-		// new webpack.optimize.AggressiveMergingPlugin(),
-		// new webpack.optimize.UglifyJsPlugin({
-		// 	compress: { warnings: false },
-		// 	comments: false,
-		// 	mangle: true,
-		// 	minimize: true,
-		// 	sourceMap: false
-		// }),
-		new webpack.optimize.CommonsChunkPlugin({
-			name: "vendor",
-			filename: "vendor.bundle.js"
-		})
+		new webpack.DefinePlugin({
+		 	'process.env': {
+				NODE_ENV: JSON.stringify('production')
+			}
+		}),
+		new webpack.optimize.AggressiveMergingPlugin(),
+		new webpack.optimize.UglifyJsPlugin({
+			compress: { warnings: false },
+			comments: false,
+			mangle: true,
+			minimize: true,
+			sourceMap: false
+		}),
+		// new webpack.optimize.CommonsChunkPlugin({
+		// 	name: "vendor",
+		// 	filename: "vendor.bundle.js"
+		// })
 	]
 }

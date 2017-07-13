@@ -1,4 +1,4 @@
-class inputElement {
+class InputElement {
 	constructor() {
 		this.value  = '';
 		this.isLast = true;
@@ -7,4 +7,4 @@ class inputElement {
 	}
 }
 
-export { inputElement };
+export { InputElement };
